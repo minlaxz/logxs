@@ -9,6 +9,8 @@ License: MIT, see LICENSE for more details.
 import logging
 class Logxs:
     def __init__(self, ml=False, with_time=False, debug=True, full=True):
+        """Use __constructor__.out method, this will handle the rest.
+        """
         self.with_time = with_time
         self.ml = ml
         self.debug = debug
@@ -18,7 +20,6 @@ class Logxs:
         _format = "%(asctime)s: %(message)s" if self.with_time else "%(message)s"
         _level = logging.DEBUG if self.debug else logging.INFO
         logging.basicConfig(format=_format, level=_level, datefmt="%H:%M:%S")
-        logging.debug('use `out([any])` method.') if self.debug else logging.info('use `out([any])` method.')
     
     def out(self, *argv):
         self.message = list()
