@@ -7,38 +7,46 @@ License: MIT, see LICENSE for more details.
 """
 
 import logging
-class Logxs:
-    def __init__(self, ml=False, with_time=False, debug=True, full=True):
+from rich import print as p
+
+
+class Plug:
+    def __init__(self, debug=False):
         """Use __constructor__.out method, this will handle the rest.
         """
-        self.with_time = with_time
-        self.ml = ml
         self.debug = debug
-        self.info = not debug
-        self.full = full
 
-        _format = "%(asctime)s: %(message)s" if self.with_time else "%(message)s"
+        _format = "%(asctime)s: %(m_io)s"
         _level = logging.DEBUG if self.debug else logging.INFO
         logging.basicConfig(format=_format, level=_level, datefmt="%H:%M:%S")
-    
-    def out(self, *argv):
-        self.message = list()
+
+    def c(self, *argv):
+        self.m_io = list()
+        self.t_io = list()
+        self.shape = list()
         for arg in argv:
-            if self.ml:
-                self._check_type(arg) if self.full else self.message.append(str(arg)+ ' {0}'.format(type(arg)))
-            else:
-                self.message.append(str(arg))
+            try:
+                self.m_io.append(arg)
+                self.t_io.append(type(arg))
+                self.shape.append(arg.shape)
+            except AttributeError:
+                self.shape.append(None)
 
-        for m in self.message:
-            logging.debug(m) if self.debug else logging.info(m)
-        
-    def _check_type(self, arg):
-        try:
-            self.message.append(str(arg)+ ' {0},{1}'.format(type(arg), arg.shape))
-        except AttributeError:
-            self.message.append(str(arg)+ ' {0}'.format(type(arg)))
+            except Exception as e:
+                p(e)
 
+        if not self.debug:
+            for i in range(len(self.m_io)):
+                self.print_danger(self.m_io[i])
+                if (self.shape[i]) == None:
+                    p('{0}'.format(self.t_io[i]))
+                else:
+                    p('{0} => shape: {1}'.format(self.t_io[i], self.shape[i]))
+        else:
+            pass
 
+    def print_danger(self, m):
+        p('[italic red]{0}[/italic red]'.format(m))
 
 
 """ this? maybe I previously play with JS -'D """

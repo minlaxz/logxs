@@ -3,6 +3,10 @@ import os
 
 here = os.path.abspath(os.path.dirname(__file__))
 
+requires = [
+    'rich'
+]
+
 about = {}
 with open(os.path.join(here, 'logxs', '__version__.py'), 'r') as f:
     exec(f.read(), about)
@@ -22,10 +26,21 @@ setuptools.setup(
     packages=['logxs'],
     package_dir={'logxs':'logxs'},
     classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Developers',
+        'Natural Language :: English',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: Implementation :: CPython',
     ],
     python_requires='>=3.5',
-    license=about['__license__']
+    install_requires=requires,
+    license=about['__license__'],
+    scripts=[]
+
 )
