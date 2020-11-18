@@ -11,19 +11,21 @@ from rich import print as p
 
 
 class Plug:
-    def __init__(self, debug=False):
+    def __init__(self, _log=False):
         """Use __constructor__.out method, this will handle the rest.
         """
-        self.debug = debug
+        self.debug = _log
+        self.t_io, self.shape, self.m_io = [] , [], []
 
-        _format = "%(asctime)s: %(m_io)s"
+        _format = "%(asctime)s: %(self.m_io)s"
         _level = logging.DEBUG if self.debug else logging.INFO
         logging.basicConfig(format=_format, level=_level, datefmt="%H:%M:%S")
 
     def c(self, *argv):
-        self.m_io = list()
-        self.t_io = list()
-        self.shape = list()
+        self.m_io.clear()
+        self.t_io.clear()
+        self.shape.clear()
+
         for arg in argv:
             try:
                 self.m_io.append(arg)
