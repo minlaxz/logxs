@@ -52,3 +52,26 @@ class Plug:
 
 
 """ this? maybe I previously play with JS -'D """
+
+def print(*argv):
+    data, data_type, data_shape = [], [], []
+    for arg in argv:
+        try:
+            data.append(arg)
+            data_type.append(type(arg))
+            data_shape.append(arg.shape)
+        except AttributeError:
+            data_shape.append(None)
+        except Exception as e:
+            print_danger(e)
+
+    for i in range(len(data)):
+        print_danger(data[i])
+        if (data_shape[i] != None):
+            p('{0} => shape: {1}'.format(data_type[i], data_shape[i]))
+        else:
+            p('{0}'.format(data_type[i]))
+
+
+def print_danger(m):
+    p('[italic red]{0}[/italic red]'.format(m))
