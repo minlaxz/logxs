@@ -67,10 +67,11 @@ def print(*argv):
 
     for i in range(len(data)):
         print_danger(data[i])
-        if (data_shape[i] != None):
-            p('{0} => shape: {1}'.format(data_type[i], data_shape[i]))
-        else:
+        if (data_shape[i] == () or data_shape[i] == None):
             p('{0}'.format(data_type[i]))
+        else:
+            p('{0} => shape: {1}'.format(data_type[i], data_shape[i]))
+            
 
 
 def print_danger(m):
