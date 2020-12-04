@@ -53,7 +53,7 @@ class Plug:
 
 """ this? maybe I previously play with JS -'D """
 
-def print(*argv):
+def printf(*argv):
     data, data_type, data_shape = [], [], []
     for arg in argv:
         try:
